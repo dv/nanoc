@@ -56,21 +56,6 @@ module Nanoc::Int
       # @api private
       attr_accessor :content
 
-      # Writes the item rep's compiled content to the rep's output file.
-      #
-      # This method will send two notifications: one before writing the item
-      # representation, and one after. These notifications can be used for
-      # generating diffs, for example.
-      #
-      # @api private
-      #
-      # @param [Symbol, nil] snapshot The name of the snapshot to write.
-      #
-      # @return [void]
-      def write(snapshot = :last)
-        ItemRepWriter.new.write(self, snapshot)
-      end
-
       # Resets the compilation progress for this item representation. This is
       # necessary when an unmet dependency is detected during compilation.
       #
@@ -355,7 +340,9 @@ module Nanoc::Int
         snapshots << [:pre, true]
       end
 
-      write(snapshot_name) if is_final
+      if is_final
+        ItemRepWriter.new.write(self, snapshot_name)
+      end
     end
 
     # Returns a recording proxy that is used for determining whether the
