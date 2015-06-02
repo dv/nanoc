@@ -341,7 +341,10 @@ module Nanoc::Int
       end
 
       if is_final
-        ItemRepWriter.new.write(self, snapshot_name)
+        raw_path = raw_path(snapshot: snapshot_name)
+        if raw_path
+          ItemRepWriter.new.write(self, raw_path)
+        end
       end
     end
 
