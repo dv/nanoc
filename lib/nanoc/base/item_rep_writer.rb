@@ -15,7 +15,7 @@ module Nanoc::Int
       is_created = !File.file?(raw_path)
 
       # Notify
-      Nanoc::Int::NotificationCenter.post(:will_write_rep, item_rep, snapshot)
+      Nanoc::Int::NotificationCenter.post(:will_write_rep, item_rep, raw_path)
 
       if item_rep.binary?
         temp_path = item_rep.temporary_filenames[:last]
